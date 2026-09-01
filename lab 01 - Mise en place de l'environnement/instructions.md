@@ -340,10 +340,10 @@ Résultat attendu (option Vagrant) :
 
 | Machine | Nom d'hôte | IP | OS | Python | Rôle prévu |
 |:---|:---|:---|:---|:---|:---|
-| controller | controller.anslab.local | 192.168.56.20 | Ubuntu 22.04 | 3.10.x | Nœud de contrôle |
-| node1 | node1.anslab.local | 192.168.56.21 | Ubuntu 22.04 | 3.10.x | Serveur web (`web`) |
-| node2 | node2.anslab.local | 192.168.56.22 | Ubuntu 22.04 | 3.10.x | Serveur web (`web`) |
-| node3 | node3.anslab.local | 192.168.56.23 | Ubuntu 22.04 | 3.10.x | Base de données (`db`) |
+| controller | controller.anslab.com | 192.168.56.20 | Ubuntu 22.04 | 3.10.x | Nœud de contrôle |
+| node1 | node1.wizetraining.local | 192.168.56.21 | Ubuntu 22.04 | 3.10.x | Serveur web (`web`) |
+| node2 | node2.wizetraining.local | 192.168.56.22 | Ubuntu 22.04 | 3.10.x | Serveur web (`web`) |
+| node3 | node3.wizetraining.local | 192.168.56.23 | Ubuntu 22.04 | 3.10.x | Base de données (`db`) |
 
 > En option Docker, les IP sont en `172.28.0.x` — c'est normal et sans impact.
 

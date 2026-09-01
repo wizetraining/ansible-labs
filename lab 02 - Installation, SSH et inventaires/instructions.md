@@ -178,9 +178,12 @@ done
 # Mot de passe demandé pour chaque nœud : admin
 ```
 
-**Version non interactive** (utile en CI, `sshpass` est déjà installé) :
+**Version non interactive** (utile en CI) — `sshpass` doit d'abord être installé sur le
+controller :
 
 ```bash
+sudo apt-get install -y sshpass
+
 for n in node1 node2 node3; do
   sshpass -p admin ssh-copy-id -o StrictHostKeyChecking=no admin@$n
 done
@@ -198,9 +201,9 @@ done
 Résultat attendu :
 
 ```
-node1 : node1.anslab.local
-node2 : node2.anslab.local
-node3 : node3.anslab.local
+node1 : node1.wizetraining.local
+node2 : node2.wizetraining.local
+node3 : node3.wizetraining.local
 ```
 
 > `-o BatchMode=yes` interdit toute invite interactive : si la clé ne fonctionne pas, la
