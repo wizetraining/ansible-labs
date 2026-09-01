@@ -1,0 +1,68 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+#
+# Formation Ansible 2 jours — Environnement de lab
+# 1 nœud de contrôle (controller) + 3 nœuds cibles (node1, node2, node3)
+#
+# Sur Intel/AMD, remplacer la box par "bento/ubuntu-22.04"
+
+IMAGE_NAME = "bento/ubuntu-22.04-arm64"
+DOMAIN     = "anslab.local"
+
+NODES = [
+  { name: "node1", ip: "192.168.56.21", mem: 1024, cpus: 1 },
+  { name: "node2", ip: "192.168.56.22", mem: 1024, cpus: 1 },
+  { name: "node3", ip: "192.168.56.23", mem: 1024, cpus: 1 }
+]
+
+Vagrant.configure("2") do |config|
+
+  config.vm.box               = IMAGE_NAME
+  config.vm.box_check_update  = false
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = 2048
+    vb.cpus   = 2
+  end
+
+  # ---------------------------------------------------------------------------
+  # Nœud de contrôle : Ansible est installé ICI. C'est notre poste de travail.
+  # ---------------------------------------------------------------------------
+  config.vm.define "controller", primary: true do |controller|
+    controller.vm.hostname = "controller.#{DOMAIN}"
+    controller.vm.network "private_network", ip: "192.168.56.20"
+
+    controller.vm.provider "virtualbox" do |vb|
+      vb.name   = "ansible-controller"
+      vb.memory = 2048
+      vb.cpus   = 2
+    end
+
+    # Répertoire de travail partagé hôte <-> VM : éditez vos YAML depuis votre IDE
+    controller.vm.synced_folder "./tp", "/tp",
+      mount_options: ["dmode=777", "fmode=666"]
+
+    controller.vm.provision "shell", path: "bootstrap.sh"
+    controller.vm.provision "shell", path: "bootstrap-controller.sh"
+  end
+
+  # ---------------------------------------------------------------------------
+  # Nœuds cibles : aucun agent Ansible n'y est installé (mode agentless).
+  # Seuls Python 3 et un serveur SSH sont nécessaires.
+  # ---------------------------------------------------------------------------
+  NODES.each do |node|
+    config.vm.define node[:name] do |n|
+      n.vm.hostname = "#{node[:name]}.#{DOMAIN}"
+      n.vm.network "private_network", ip: node[:ip]
+
+      n.vm.provider "virtualbox" do |vb|
+        vb.name   = "ansible-#{node[:name]}"
+        vb.memory = node[:mem]
+        vb.cpus   = node[:cpus]
+      end
+
+      n.vm.provision "shell", path: "bootstrap.sh"
+    end
+  end
+
+end
