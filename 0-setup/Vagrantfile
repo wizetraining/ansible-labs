@@ -1,68 +1,50 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-#
-# Formation Ansible 2 jours — Environnement de lab
-# 1 nœud de contrôle (controller) + 3 nœuds cibles (node1, node2, node3)
-#
-# Sur Intel/AMD, remplacer la box par "bento/ubuntu-22.04"
-
 IMAGE_NAME = "bento/ubuntu-22.04-arm64"
-DOMAIN     = "anslab.local"
-
-NODES = [
-  { name: "node1", ip: "192.168.56.21", mem: 1024, cpus: 1 },
-  { name: "node2", ip: "192.168.56.22", mem: 1024, cpus: 1 },
-  { name: "node3", ip: "192.168.56.23", mem: 1024, cpus: 1 }
-]
 
 Vagrant.configure("2") do |config|
-
-  config.vm.box               = IMAGE_NAME
-  config.vm.box_check_update  = false
-
-  config.vm.provider "virtualbox" do |vb|
-    vb.memory = 2048
-    vb.cpus   = 2
+  
+  config.vm.provider "virtualbox" do |rs|
+    rs.memory = 2048
+    rs.cpus = 2
   end
 
-  # ---------------------------------------------------------------------------
-  # Nœud de contrôle : Ansible est installé ICI. C'est notre poste de travail.
-  # ---------------------------------------------------------------------------
-  config.vm.define "controller", primary: true do |controller|
-    controller.vm.hostname = "controller.#{DOMAIN}"
+  # Ne vérifie pas les mises à jour des box à chaque démarrage.
+  config.vm.box_check_update = false
+
+
+  # Noeud de controle où Ansible sera intallé
+  config.vm.define "controller" do |controller|
+    controller.vm.box = IMAGE_NAME
+    controller.vm.hostname = "controller.anslab.com"
     controller.vm.network "private_network", ip: "192.168.56.20"
-
-    controller.vm.provider "virtualbox" do |vb|
-      vb.name   = "ansible-controller"
-      vb.memory = 2048
-      vb.cpus   = 2
-    end
-
-    # Répertoire de travail partagé hôte <-> VM : éditez vos YAML depuis votre IDE
-    controller.vm.synced_folder "./tp", "/tp",
-      mount_options: ["dmode=777", "fmode=666"]
-
     controller.vm.provision "shell", path: "bootstrap.sh"
-    controller.vm.provision "shell", path: "bootstrap-controller.sh"
+    #controller.vm.provision "file", source: "key_gen.sh", destination: "/home/vagrant/"
+    controller.vm.synced_folder "./tp", "/tp", :mount_options => ["dmode=777", "fmode=664"]
   end
 
-  # ---------------------------------------------------------------------------
-  # Nœuds cibles : aucun agent Ansible n'y est installé (mode agentless).
-  # Seuls Python 3 et un serveur SSH sont nécessaires.
-  # ---------------------------------------------------------------------------
-  NODES.each do |node|
-    config.vm.define node[:name] do |n|
-      n.vm.hostname = "#{node[:name]}.#{DOMAIN}"
-      n.vm.network "private_network", ip: node[:ip]
+  # Noeud 1
+  config.vm.define "node1" do |n1|
+    n1.vm.box = IMAGE_NAME
+    n1.vm.hostname = "node1.wizetraining.local"
+    n1.vm.network "private_network", ip: "192.168.56.21"
+    n1.vm.provision "shell", path: "bootstrap.sh"
+  end
 
-      n.vm.provider "virtualbox" do |vb|
-        vb.name   = "ansible-#{node[:name]}"
-        vb.memory = node[:mem]
-        vb.cpus   = node[:cpus]
-      end
+  # Noeud 2
+  config.vm.define "node2" do |n2|
+    n2.vm.box = IMAGE_NAME
+    n2.vm.hostname = "node2.wizetraining.local"
+    n2.vm.network "private_network", ip: "192.168.56.22"
+    n2.vm.provision "shell", path: "bootstrap.sh"
+  end
 
-      n.vm.provision "shell", path: "bootstrap.sh"
-    end
+  # Noeud 3
+  config.vm.define "node3" do |n3|
+    n3.vm.box = IMAGE_NAME
+    n3.vm.hostname = "node3.wizetraining.local"
+    n3.vm.network "private_network", ip: "192.168.56.23"
+    n3.vm.provision "shell", path: "bootstrap.sh"
   end
 
 end
