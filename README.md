@@ -25,7 +25,7 @@ notions vues. Les corrections sont masquées dans des blocs dépliables `<detail
 
 | Module | Thème | Lab associé | Durée |
 |:---|:---|:---|:---|
-| M6 | Variables avancées, facts & templating Jinja2 | [Lab 06 — Templating Jinja2 et facts](<lab 06 - Templating Jinja2 et facts/instructions.md>) | 60 min |
+| M6 | Variables avancées, facts & templating Jinja2 | [Lab 06 — Templating Jinja2 et facts](<lab 06 - Templating Jinja2 et facts/instructions.md>) | 75 min |
 | M7 | Rôles, Galaxy & collections | [Lab 07 — Rôles et Ansible Galaxy](<lab 07 - Rôles et Ansible Galaxy/instructions.md>) | 60 min |
 | M8 | Ansible Vault & gestion des secrets | [Lab 08 — Ansible Vault et gestion des secrets](<lab 08 - Ansible Vault et gestion des secrets/instructions.md>) | 45 min |
 | M9 | Orchestration avancée & fiabilité | [Lab 09 — Orchestration avancée et rolling update](<lab 09 - Orchestration avancée et rolling update/instructions.md>) | 60 min |
