@@ -42,7 +42,7 @@
 
 L'équipe applicative a besoin d'un environnement LAMP reproductible : **Apache + PHP** sur
 les serveurs web, **MariaDB** sur le serveur de base de données. Aujourd'hui, ce
-déploiement prend une demi-journée et le résultat diffère d'un serveur à l'autre.
+déploiement prend une demi-journée egitt le résultat diffère d'un serveur à l'autre.
 
 Vous allez y arriver par étapes : d'abord des playbooks d'une seule tâche, puis la gestion
 des utilisateurs et des fichiers, puis le diagnostic d'un service qui refuse de démarrer, et
@@ -50,16 +50,16 @@ enfin la stack complète.
 
 ## Parcours du lab
 
-| Partie | Thème | Exercices | Difficulté |
-|:---|:---|:---|:---|
-| 1 | Le playbook minimal | 1 | ⭐ |
-| 2 | Inventaire et modules de base | 2, 3.1, 4, 5, 10, 11 | ⭐ |
-| 3 | Variables et priorité | V1, V2, V3 | ⭐⭐ |
-| 4 | Utilisateurs, groupes et fichiers système | 6, 3.2, 13, 12 | ⭐⭐ |
-| 5 | Handlers et diagnostic d'un service en échec | H1, 7, 7.2 | ⭐⭐⭐ |
-| 6 | La stack LAMP complète | 9, 8, final | ⭐⭐⭐ |
-| 7 | Variables externes et secrets | 14 | ⭐⭐⭐ |
-| 8 | Diagnostic et nettoyage | D1, D2 | ⭐⭐ |
+| Partie | Thème                                        | Exercices            | Difficulté |
+| :----- | :-------------------------------------------- | :------------------- | :---------- |
+| 1      | Le playbook minimal                           | 1                    | ⭐          |
+| 2      | Inventaire et modules de base                 | 2, 3.1, 4, 5, 10, 11 | ⭐          |
+| 3      | Variables et priorité                        | V1, V2, V3           | ⭐⭐        |
+| 4      | Utilisateurs, groupes et fichiers système    | 6, 3.2, 13, 12       | ⭐⭐        |
+| 5      | Handlers et diagnostic d'un service en échec | H1, 7, 7.2           | ⭐⭐⭐      |
+| 6      | La stack LAMP complète                       | 9, 8, final          | ⭐⭐⭐      |
+| 7      | Variables externes et secrets                 | 14                   | ⭐⭐⭐      |
+| 8      | Diagnostic et nettoyage                       | D1, D2               | ⭐⭐        |
 
 ---
 
@@ -69,12 +69,12 @@ enfin la stack complète.
 
 **Spécifications :**
 
-| Élément | Valeur |
-|:---|:---|
-| Fichier | `/tp/playbooks/exo01-hello.yml` |
-| Nom du play | `Exercice 1 - Hello Lab` |
-| Cible | tous les hôtes de l'inventaire |
-| Collecte des facts | désactivée (tâches 1 et 2) |
+| Élément          | Valeur                            |
+| :----------------- | :-------------------------------- |
+| Fichier            | `/tp/playbooks/exo01-hello.yml` |
+| Nom du play        | `Exercice 1 - Hello Lab`        |
+| Cible              | tous les hôtes de l'inventaire   |
+| Collecte des facts | désactivée (tâches 1 et 2)     |
 
 ---
 
@@ -116,13 +116,13 @@ ansible-doc ansible.builtin.debug
 
 **Anatomie du fichier :**
 
-| Élément | Rôle |
-|:---|:---|
-| `---` | Début de document YAML (conventionnel) |
-| `- name:` | Nom du **play** — le tiret indique une liste de plays |
-| `hosts:` | Le motif de cibles (**obligatoire**) |
-| `gather_facts:` | Collecte des facts (`true` par défaut) |
-| `tasks:` | La liste ordonnée des tâches |
+| Élément         | Rôle                                                       |
+| :---------------- | :---------------------------------------------------------- |
+| `---`           | Début de document YAML (conventionnel)                     |
+| `- name:`       | Nom du**play** — le tiret indique une liste de plays |
+| `hosts:`        | Le motif de cibles (**obligatoire**)                  |
+| `gather_facts:` | Collecte des facts (`true` par défaut)                   |
+| `tasks:`        | La liste ordonnée des tâches                              |
 
 </details>
 
@@ -171,10 +171,10 @@ ok: [node1] => {
 
 > ⚠️ **La différence, et le piège le plus fréquent chez les débutants :**
 >
-> | Paramètre | Écriture | Usage |
-> |:---|:---|:---|
-> | `var:` | le nom **sans** `{{ }}` | Inspecter le contenu d'une variable |
-> | `msg:` | une chaîne **avec** `{{ }}` | Composer un message lisible |
+> | Paramètre | Écriture                           | Usage                               |
+> | :--------- | :---------------------------------- | :---------------------------------- |
+> | `var:`   | le nom**sans** `{{ }}`      | Inspecter le contenu d'une variable |
+> | `msg:`   | une chaîne**avec** `{{ }}` | Composer un message lisible         |
 >
 > ```yaml
 > - ansible.builtin.debug:
@@ -243,13 +243,13 @@ mapping values are not allowed in this context
 
 **Les 5 erreurs YAML les plus fréquentes :**
 
-| Erreur | Symptôme | Correction |
-|:---|:---|:---|
-| Tabulation au lieu d'espaces | `found character '\t'` | YAML **interdit** les tabulations |
-| Indentation incohérente | `mapping values are not allowed` | 2 espaces par niveau, partout |
-| Deux-points dans une valeur non quotée | `could not find expected ':'` | Quoter : `msg: "Erreur: échec"` |
-| `{{ }}` en début de valeur non quotée | `found unexpected '{'` | Quoter : `msg: "{{ var }}"` |
-| Tiret manquant devant une tâche | La tâche est absorbée par la précédente | Chaque tâche commence par `-` |
+| Erreur                                    | Symptôme                                   | Correction                             |
+| :---------------------------------------- | :------------------------------------------ | :------------------------------------- |
+| Tabulation au lieu d'espaces              | `found character '\t'`                    | YAML**interdit** les tabulations |
+| Indentation incohérente                  | `mapping values are not allowed`          | 2 espaces par niveau, partout          |
+| Deux-points dans une valeur non quotée   | `could not find expected ':'`             | Quoter :`msg: "Erreur: échec"`      |
+| `{{ }}` en début de valeur non quotée | `found unexpected '{'`                    | Quoter :`msg: "{{ var }}"`           |
+| Tiret manquant devant une tâche          | La tâche est absorbée par la précédente | Chaque tâche commence par`-`        |
 
 > 🔑 **Réflexes :** `--syntax-check` avant chaque exécution, et configurez votre éditeur
 > pour afficher les espaces et convertir les tabulations. Au Lab 10, `ansible-lint` ira
@@ -267,10 +267,10 @@ mapping values are not allowed in this context
 
 **Spécifications de l'inventaire :**
 
-| Groupe | Membres |
-|:---|:---|
-| `web_servers` | `node1`, `node2` |
-| `db_servers` | `node3` |
+| Groupe            | Membres                          |
+| :---------------- | :------------------------------- |
+| `web_servers`   | `node1`, `node2`             |
+| `db_servers`    | `node3`                        |
 | `prod` (parent) | `web_servers` + `db_servers` |
 
 Variables du groupe `prod` : `env: production`, `ansible_user: admin`.
@@ -374,10 +374,10 @@ ansible-doc ansible.builtin.package | head -30
 
 **`apt` ou `package` ? Les deux fonctionnent ici :**
 
-| Module | Avantages | Inconvénients |
-|:---|:---|:---|
-| **`package`** | Générique — masque les détails de distribution. Le **même** playbook fonctionne sur Debian, RedHat, SUSE… | Moins de contrôle : pas d'accès aux options spécifiques (`purge`, `autoremove`, `deb`, `cache_valid_time`, `dpkg_options`) |
-| **`apt`** | Accès aux fonctionnalités avancées de Debian/Ubuntu, contrôle fin du cache et des dépendances | Moins portable : un playbook `apt` ne tourne pas sur RHEL. Plus de maintenance si le parc est hétérogène |
+| Module                | Avantages                                                                                                            | Inconvénients                                                                                                                          |
+| :-------------------- | :------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------- |
+| **`package`** | Générique — masque les détails de distribution. Le**même** playbook fonctionne sur Debian, RedHat, SUSE… | Moins de contrôle : pas d'accès aux options spécifiques (`purge`, `autoremove`, `deb`, `cache_valid_time`, `dpkg_options`) |
+| **`apt`**     | Accès aux fonctionnalités avancées de Debian/Ubuntu, contrôle fin du cache et des dépendances                   | Moins portable : un playbook`apt` ne tourne pas sur RHEL. Plus de maintenance si le parc est hétérogène                            |
 
 ```yaml
 # Version portable multi-distribution
@@ -403,12 +403,12 @@ ansible-doc ansible.builtin.package | head -30
 
 **Spécifications :**
 
-| Attribut | Valeur |
-|:---|:---|
-| Nom | `ansible_user` |
-| Cible | tous les hôtes |
-| État | présent |
-| Fichier | `/tp/playbooks/exo03-user.yml` |
+| Attribut | Valeur                           |
+| :------- | :------------------------------- |
+| Nom      | `ansible_user`                 |
+| Cible    | tous les hôtes                  |
+| État    | présent                         |
+| Fichier  | `/tp/playbooks/exo03-user.yml` |
 
 ---
 
@@ -472,11 +472,11 @@ useradd: user 'ansible_user' already exists
 non-zero return code
 ```
 
-| | `useradd` | module `user` |
-|:---|:---|:---|
-| 1re exécution | crée le compte | `changed` |
-| 2e exécution | **échoue** | `ok` — rien à faire |
-| Notion d'état désiré | ❌ impératif | ✅ déclaratif |
+|                         | `useradd`       | module`user`          |
+| :---------------------- | :---------------- | :---------------------- |
+| 1re exécution          | crée le compte   | `changed`             |
+| 2e exécution           | **échoue** | `ok` — rien à faire |
+| Notion d'état désiré | ❌ impératif     | ✅ déclaratif          |
 
 > 🔑 **C'est l'idempotence.** Elle permet de rejouer un playbook sans crainte, et rend le
 > statut `changed` fiable : il signale un **vrai** changement sur le parc.
@@ -489,14 +489,14 @@ non-zero return code
 
 **Spécifications :**
 
-| Attribut | Valeur |
-|:---|:---|
-| Chemin | `/var/www/html` |
-| Type | répertoire |
-| Propriétaire | `www-data` |
-| Groupe | `www-data` |
-| Permissions | `0755` |
-| Cible | `web_servers` |
+| Attribut      | Valeur            |
+| :------------ | :---------------- |
+| Chemin        | `/var/www/html` |
+| Type          | répertoire       |
+| Propriétaire | `www-data`      |
+| Groupe        | `www-data`      |
+| Permissions   | `0755`          |
+| Cible         | `web_servers`   |
 
 ---
 
@@ -564,13 +564,13 @@ Selon la version d'Ansible, vous obtiendrez soit un avertissement, soit des perm
 
 **Les valeurs de `state` du module `file` :**
 
-| `state` | Effet |
-|:---|:---|
-| `directory` | Crée le répertoire **et ses parents** (comme `mkdir -p`) |
-| `touch` | Crée un fichier vide s'il n'existe pas |
-| `file` | Vérifie qu'il existe (n'en crée **pas**) et ajuste les attributs |
-| `absent` | Supprime (récursivement pour un répertoire) |
-| `link` / `hard` | Crée un lien symbolique / physique |
+| `state`           | Effet                                                                   |
+| :------------------ | :---------------------------------------------------------------------- |
+| `directory`       | Crée le répertoire**et ses parents** (comme `mkdir -p`)       |
+| `touch`           | Crée un fichier vide s'il n'existe pas                                 |
+| `file`            | Vérifie qu'il existe (n'en crée**pas**) et ajuste les attributs |
+| `absent`          | Supprime (récursivement pour un répertoire)                           |
+| `link` / `hard` | Crée un lien symbolique / physique                                     |
 
 </details>
 
@@ -580,13 +580,13 @@ Selon la version d'Ansible, vous obtiendrez soit un avertissement, soit des perm
 
 **Spécifications :**
 
-| Élément | Valeur |
-|:---|:---|
-| Fichier source (sur le controller) | `/tp/files/index.html` |
-| Destination | `/var/www/html/index.html` |
-| Propriétaire / groupe | `root` / `root` |
-| Permissions | `0644` |
-| Cible | `web_servers` |
+| Élément                          | Valeur                       |
+| :--------------------------------- | :--------------------------- |
+| Fichier source (sur le controller) | `/tp/files/index.html`     |
+| Destination                        | `/var/www/html/index.html` |
+| Propriétaire / groupe             | `root` / `root`          |
+| Permissions                        | `0644`                     |
+| Cible                              | `web_servers`              |
 
 Contenu attendu du fichier source : une page HTML simple avec un titre `Lab Ansible` et un
 en-tête `<h1>` de votre choix.
@@ -677,11 +677,11 @@ directement dans le playbook. Dans quel cas cette variante est-elle préférable
 
 **Les trois usages du module `copy` :**
 
-| Paramètre | Source | Cas d'usage |
-|:---|:---|:---|
-| `src:` | fichier du **controller** | Le plus courant — fichier versionné dans le projet |
-| `content:` | chaîne inline | Petit fichier, quelques lignes, pas de fichier séparé à gérer |
-| `remote_src: true` | fichier **de la cible** | Copier d'un endroit à un autre sur la machine distante |
+| Paramètre           | Source                         | Cas d'usage                                                       |
+| :------------------- | :----------------------------- | :---------------------------------------------------------------- |
+| `src:`             | fichier du**controller** | Le plus courant — fichier versionné dans le projet              |
+| `content:`         | chaîne inline                 | Petit fichier, quelques lignes, pas de fichier séparé à gérer |
+| `remote_src: true` | fichier**de la cible**   | Copier d'un endroit à un autre sur la machine distante           |
 
 > ⚠️ **Le piège `remote_src`.** Par défaut, `src:` désigne un fichier **du controller**.
 > Pour dupliquer un fichier déjà présent sur la cible (une sauvegarde de configuration, par
@@ -689,6 +689,7 @@ directement dans le playbook. Dans quel cas cette variante est-elle préférable
 > et échoue avec `Could not find or access`.
 
 > 💡 **Modules connexes :**
+>
 > * `template` — comme `copy` mais avec rendu Jinja2 (exercice 9)
 > * `fetch` — l'inverse : récupère un fichier **depuis** les cibles
 > * `lineinfile` — modifie **une ligne** dans un fichier existant (exercice 6)
@@ -702,12 +703,12 @@ directement dans le playbook. Dans quel cas cette variante est-elle préférable
 
 **Spécifications :**
 
-| Élément | Valeur |
-|:---|:---|
-| Fichier | `/tp/playbooks/exo10-maj.yml` |
-| Cible | tous les hôtes |
-| Cache APT | rafraîchi, valide 1 heure |
-| Type de mise à jour | complète (`dist-upgrade`) |
+| Élément            | Valeur                          |
+| :------------------- | :------------------------------ |
+| Fichier              | `/tp/playbooks/exo10-maj.yml` |
+| Cible                | tous les hôtes                 |
+| Cache APT            | rafraîchi, valide 1 heure      |
+| Type de mise à jour | complète (`dist-upgrade`)    |
 
 ---
 
@@ -740,11 +741,11 @@ ansible-playbook playbooks/exo10-maj.yml
 
 **Les valeurs de `upgrade` :**
 
-| Valeur | Équivalent APT |
-|:---|:---|
-| `yes` / `safe` | `apt-get upgrade` — n'installe ni ne supprime de paquets |
+| Valeur              | Équivalent APT                                                                      |
+| :------------------ | :----------------------------------------------------------------------------------- |
+| `yes` / `safe`  | `apt-get upgrade` — n'installe ni ne supprime de paquets                          |
 | `full` / `dist` | `apt-get dist-upgrade` — peut installer/supprimer pour résoudre les dépendances |
-| `no` | Aucune mise à jour (défaut) |
+| `no`              | Aucune mise à jour (défaut)                                                        |
 
 > 💡 `cache_valid_time: 3600` évite de rafraîchir le cache APT s'il a moins d'une heure —
 > gain de temps notable sur un parc important.
@@ -795,13 +796,13 @@ intéresse ici est `stat.exists` (booléen).
 
 **Spécifications :**
 
-| Attribut | Valeur |
-|:---|:---|
-| Nom | `lab1` |
-| Shell | `/bin/bash` |
-| Groupe secondaire | `sudo` |
+| Attribut          | Valeur               |
+| :---------------- | :------------------- |
+| Nom               | `lab1`             |
+| Shell             | `/bin/bash`        |
+| Groupe secondaire | `sudo`             |
 | Groupes existants | **conservés** |
-| Cible | tous les hôtes |
+| Cible             | tous les hôtes      |
 
 ---
 
@@ -895,24 +896,27 @@ ansible all -m command -a "sudo -l -U lab1" --become -o
 > totalement inutilisable sur la machine — et donc vous en verrouiller définitivement.
 >
 > Avec `validate`, Ansible :
+>
 > 1. génère le fichier dans un emplacement **temporaire**
 > 2. exécute `visudo -cf <fichier temporaire>` (le `%s` est remplacé par ce chemin)
 > 3. n'écrit à destination **que si** la commande réussit
 >
 > **Testez la protection** — introduisez volontairement une erreur :
+>
 > ```yaml
 >         content: "CETTE LIGNE EST INVALIDE\n"
 > ```
+>
 > La tâche échoue avec `Validation failed`, et `/etc/sudoers.d/lab1` **n'est pas modifié**.
 
 **Les commandes de validation à connaître :**
 
-| Fichier | Commande |
-|:---|:---|
-| `sudoers` | `visudo -cf %s` |
-| `sshd_config` | `sshd -t -f %s` |
+| Fichier            | Commande                |
+| :----------------- | :---------------------- |
+| `sudoers`        | `visudo -cf %s`       |
+| `sshd_config`    | `sshd -t -f %s`       |
 | VirtualHost Apache | `apache2ctl -f %s -t` |
-| Config Nginx | `nginx -t -c %s` |
+| Config Nginx       | `nginx -t -c %s`      |
 
 </details>
 
@@ -924,19 +928,19 @@ ansible all -m command -a "sudo -l -U lab1" --become -o
 
 **Spécifications — variables à déclarer dans la section `vars:` du play :**
 
-| Variable | Type | Valeur |
-|:---|:---|:---|
-| `app_name` | chaîne | `monapp` |
-| `app_version` | chaîne | `"2.1.0"` (quotée) |
-| `app_port` | entier | `8080` |
-| `app_features` | liste | `authentification`, `cache`, `metrics` |
-| `app_config` | dictionnaire | `timeout: 30`, `max_connections: 100` |
+| Variable         | Type         | Valeur                                       |
+| :--------------- | :----------- | :------------------------------------------- |
+| `app_name`     | chaîne      | `monapp`                                   |
+| `app_version`  | chaîne      | `"2.1.0"` (quotée)                        |
+| `app_port`     | entier       | `8080`                                     |
+| `app_features` | liste        | `authentification`, `cache`, `metrics` |
+| `app_config`   | dictionnaire | `timeout: 30`, `max_connections: 100`    |
 
-| Élément | Valeur |
-|:---|:---|
-| Fichier | `/tp/playbooks/exo-variables.yml` |
-| Cible | `web_servers` |
-| Collecte des facts | activée |
+| Élément          | Valeur                              |
+| :----------------- | :---------------------------------- |
+| Fichier            | `/tp/playbooks/exo-variables.yml` |
+| Cible              | `web_servers`                     |
+| Collecte des facts | activée                            |
 
 ---
 
@@ -1100,12 +1104,12 @@ ansible-playbook playbooks/exo-variables.yml
 
 **Spécifications — fichiers à créer :**
 
-| Fichier | Variables |
-|:---|:---|
-| `/tp/group_vars/all.yml` | `env: production`, `admin_email: ops@example.com`, `timezone: Europe/Paris` |
+| Fichier                            | Variables                                                                                           |
+| :--------------------------------- | :-------------------------------------------------------------------------------------------------- |
+| `/tp/group_vars/all.yml`         | `env: production`, `admin_email: ops@example.com`, `timezone: Europe/Paris`                   |
 | `/tp/group_vars/web_servers.yml` | `http_port: 80`, `app_name: monapp`, `document_root: /var/www/monapp`, `php_version: "8.1"` |
-| `/tp/group_vars/db_servers.yml` | `db_port: 3306`, `db_name: monapp_db`, `db_user: monapp` |
-| `/tp/host_vars/node1.yml` | `server_role: primary`, `http_port: 8080` |
+| `/tp/group_vars/db_servers.yml`  | `db_port: 3306`, `db_name: monapp_db`, `db_user: monapp`                                      |
+| `/tp/host_vars/node1.yml`        | `server_role: primary`, `http_port: 8080`                                                       |
 
 ---
 
@@ -1260,13 +1264,13 @@ ansible-playbook playbooks/exo-groupvars.yml
 **Objectif :** surcharger la **même** variable `http_port` à quatre niveaux différents et
 observer laquelle gagne.
 
-| Niveau | Source | Valeur |
-|:---|:---|:---|
-| 1 | `group_vars/web_servers.yml` | `80` |
-| 2 | `host_vars/node1.yml` | `8080` |
-| 3 | `vars:` du play | `3000` |
-| 4 | `vars:` de la tâche | `4000` |
-| 5 | `--extra-vars` | `9999` |
+| Niveau | Source                         | Valeur   |
+| :----- | :----------------------------- | :------- |
+| 1      | `group_vars/web_servers.yml` | `80`   |
+| 2      | `host_vars/node1.yml`        | `8080` |
+| 3      | `vars:` du play              | `3000` |
+| 4      | `vars:` de la tâche         | `4000` |
+| 5      | `--extra-vars`               | `9999` |
 
 ---
 
@@ -1377,21 +1381,22 @@ les **deux** règles à retenir en pratique ?
 
 **Priorité en pratique (du plus faible au plus fort) :**
 
-| Rang | Source | Exemple |
-|:---|:---|:---|
-| 1 | Défauts de rôle | `roles/x/defaults/main.yml` |
-| 2 | `group_vars/all` | `group_vars/all.yml` |
-| 3 | `group_vars/<groupe>` | `group_vars/web_servers.yml` |
-| 4 | `host_vars/<hôte>` | `host_vars/node1.yml` |
-| 5 | Facts | `ansible_distribution` |
-| 6 | **Play `vars`** | `vars:` dans le play |
-| 7 | `vars_files` | Fichier chargé par le play |
-| 8 | **Task `vars`** | `vars:` sur une tâche |
-| 9 | `set_fact` / `register` | Défini en cours d'exécution |
-| 10 | Variables de rôle | `roles/x/vars/main.yml` |
-| 11 | **`--extra-vars` (`-e`)** | ⚡ **Gagne TOUJOURS** |
+| Rang | Source                              | Exemple                        |
+| :--- | :---------------------------------- | :----------------------------- |
+| 1    | Défauts de rôle                   | `roles/x/defaults/main.yml`  |
+| 2    | `group_vars/all`                  | `group_vars/all.yml`         |
+| 3    | `group_vars/<groupe>`             | `group_vars/web_servers.yml` |
+| 4    | `host_vars/<hôte>`               | `host_vars/node1.yml`        |
+| 5    | Facts                               | `ansible_distribution`       |
+| 6    | **Play `vars`**             | `vars:` dans le play         |
+| 7    | `vars_files`                      | Fichier chargé par le play    |
+| 8    | **Task `vars`**             | `vars:` sur une tâche       |
+| 9    | `set_fact` / `register`         | Défini en cours d'exécution  |
+| 10   | Variables de rôle                  | `roles/x/vars/main.yml`      |
+| 11   | **`--extra-vars` (`-e`)** | ⚡**Gagne TOUJOURS**     |
 
 > 🔑 **Les deux règles à retenir :**
+>
 > 1. `defaults/` d'un rôle = le plus faible → c'est **fait pour** être surchargé
 > 2. `-e` en ligne de commande = le plus fort → rien ne peut le contredire
 >
@@ -1409,14 +1414,14 @@ les **deux** règles à retenir en pratique ?
 
 **Spécifications :**
 
-| Élément | Valeur |
-|:---|:---|
-| Fichier cible | `/etc/ssh/sshd_config` |
-| Directive 1 | `PasswordAuthentication no` |
-| Directive 2 | `PubkeyAuthentication yes` |
-| Validation | `sshd -t -f %s` avant écriture |
-| Rechargement | par **handler** uniquement si modification |
-| Cible | tous les hôtes |
+| Élément     | Valeur                                          |
+| :------------ | :---------------------------------------------- |
+| Fichier cible | `/etc/ssh/sshd_config`                        |
+| Directive 1   | `PasswordAuthentication no`                   |
+| Directive 2   | `PubkeyAuthentication yes`                    |
+| Validation    | `sshd -t -f %s` avant écriture               |
+| Rechargement  | par**handler** uniquement si modification |
+| Cible         | tous les hôtes                                 |
 
 ---
 
@@ -1451,12 +1456,12 @@ les **deux** règles à retenir en pratique ?
 
 **Décomposition du motif `'^#?\s*PasswordAuthentication'` :**
 
-| Fragment | Signification |
-|:---|:---|
-| `^` | début de ligne |
-| `#?` | un `#` **optionnel** — capture les lignes commentées |
-| `\s*` | zéro ou plusieurs espaces |
-| `PasswordAuthentication` | la directive elle-même |
+| Fragment                   | Signification                                                 |
+| :------------------------- | :------------------------------------------------------------ |
+| `^`                      | début de ligne                                               |
+| `#?`                     | un`#` **optionnel** — capture les lignes commentées |
+| `\s*`                    | zéro ou plusieurs espaces                                    |
+| `PasswordAuthentication` | la directive elle-même                                       |
 
 Il capture donc `PasswordAuthentication yes`, `#PasswordAuthentication yes` et
 `# PasswordAuthentication yes`.
@@ -1499,11 +1504,13 @@ ansible-playbook playbooks/exo06-ssh.yml --check --diff
 > perdez tout accès.
 >
 > **Les trois protections :**
+>
 > 1. `validate: 'sshd -t -f %s'` — le fichier n'est écrit que si sa syntaxe est valide
 > 2. `--check --diff` systématiquement avant l'exécution réelle
 > 3. Garder une session SSH **ouverte** pendant l'opération
 >
 > Pour restaurer si besoin :
+>
 > ```bash
 > ansible all -m lineinfile -a "path=/etc/ssh/sshd_config regexp='^PasswordAuthentication' line='PasswordAuthentication yes'" --become
 > ansible all -m service -a "name=ssh state=restarted" --become
@@ -1527,11 +1534,11 @@ passages, elle apparaît trois fois de plus.
 
 **Pourquoi `regexp:` est indispensable :**
 
-| Sans `regexp` | Avec `regexp` |
-|:---|:---|
-| La ligne est **ajoutée** si le texte exact est absent | La ligne **correspondante** est remplacée |
-| Rejouer → duplication | **Idempotent** : une seule occurrence |
-| La directive commentée reste présente | La ligne commentée est remplacée |
+| Sans`regexp`                                              | Avec`regexp`                                  |
+| :---------------------------------------------------------- | :---------------------------------------------- |
+| La ligne est**ajoutée** si le texte exact est absent | La ligne**correspondante** est remplacée |
+| Rejouer → duplication                                      | **Idempotent** : une seule occurrence     |
+| La directive commentée reste présente                     | La ligne commentée est remplacée              |
 
 > 🔑 `lineinfile` **sans `regexp` n'est pas idempotent** au sens utile du terme. C'est
 > l'une des causes les plus fréquentes de `changed` parasites dans un playbook.
@@ -1554,15 +1561,15 @@ ansible-playbook playbooks/exo06-ssh.yml
 
 **Spécifications :**
 
-| Attribut | Valeur |
-|:---|:---|
-| Nom | `labuser` |
-| UID | `1999` |
-| Commentaire (GECOS) | `Utilisateur Lab` |
-| Groupe secondaire | `developpeurs` |
-| Mot de passe | `labuser001` (haché en SHA-512) |
-| Shell | `/bin/bash` |
-| Cible | tous les hôtes |
+| Attribut            | Valeur                             |
+| :------------------ | :--------------------------------- |
+| Nom                 | `labuser`                        |
+| UID                 | `1999`                           |
+| Commentaire (GECOS) | `Utilisateur Lab`                |
+| Groupe secondaire   | `developpeurs`                   |
+| Mot de passe        | `labuser001` (haché en SHA-512) |
+| Shell               | `/bin/bash`                      |
+| Cible               | tous les hôtes                    |
 
 > Le groupe `developpeurs` doit être créé **en commande ad-hoc** au préalable.
 > L'exercice 13 montrera comment intégrer ce contrôle dans le playbook.
@@ -1679,10 +1686,10 @@ ansible-playbook playbooks/exo03-2-labuser.yml
 
 **Le second argument (`'mysecretsalt'`) est le sel de hachage.**
 
-| Écriture | Comportement |
-|:---|:---|
-| `password_hash('sha512')` | Sel **aléatoire** à chaque exécution → hash différent → **toujours `changed`** |
-| `password_hash('sha512', 'mysecretsalt')` | Sel **fixe** → hash stable → **idempotent** |
+| Écriture                                   | Comportement                                                                                      |
+| :------------------------------------------ | :------------------------------------------------------------------------------------------------ |
+| `password_hash('sha512')`                 | Sel**aléatoire** à chaque exécution → hash différent → **toujours `changed`** |
+| `password_hash('sha512', 'mysecretsalt')` | Sel**fixe** → hash stable → **idempotent**                                          |
 
 Testez la différence en retirant le sel :
 
@@ -1702,6 +1709,7 @@ Testez la différence en retirant le sel :
 > # group_vars/all/vault.yml (chiffré)
 > vault_labuser_hash: "$6$rounds=656000$xxxxxxxx$yyyyyyyyyy..."
 > ```
+>
 > ```yaml
 > password: "{{ vault_labuser_hash }}"
 > ```
@@ -1716,16 +1724,17 @@ Testez la différence en retirant le sel :
 
 **Spécifications :**
 
-| Attribut | Valeur |
-|:---|:---|
-| Nom | `labuser2` |
-| UID | `2000` |
-| Commentaire | `Utilisateur Lab 2` |
-| Groupe secondaire | `devops` |
-| Mot de passe | `labuser002` (SHA-512) |
-| Cible | tous les hôtes |
+| Attribut          | Valeur                   |
+| :---------------- | :----------------------- |
+| Nom               | `labuser2`             |
+| UID               | `2000`                 |
+| Commentaire       | `Utilisateur Lab 2`    |
+| Groupe secondaire | `devops`               |
+| Mot de passe      | `labuser002` (SHA-512) |
+| Cible             | tous les hôtes          |
 
 Le groupe `devops` n'existe pas encore. Le playbook doit :
+
 1. tenter de créer `devops` avec le **gid `1500`**
 2. considérer l'échec comme **non bloquant**
 3. créer le groupe **sans gid imposé** si la première tentative a échoué
@@ -1757,10 +1766,10 @@ son résultat et sans interrompre le playbook en cas d'échec.
 
 **Les deux directives combinées :**
 
-| Directive | Rôle |
-|:---|:---|
-| `register: group_result` | Capture **tout** le résultat : `failed`, `changed`, `msg`, `gid`… |
-| `ignore_errors: true` | Empêche l'échec d'interrompre le play pour cet hôte |
+| Directive                  | Rôle                                                                            |
+| :------------------------- | :------------------------------------------------------------------------------- |
+| `register: group_result` | Capture**tout** le résultat : `failed`, `changed`, `msg`, `gid`… |
+| `ignore_errors: true`    | Empêche l'échec d'interrompre le play pour cet hôte                           |
 
 Inspectez ce que contient la variable :
 
@@ -1788,12 +1797,12 @@ la tâche précédente a échoué.
 
 **Les tests utilisables sur une variable `register` :**
 
-| Test | Signification |
-|:---|:---|
-| `is failed` | La tâche a échoué |
-| `is succeeded` | La tâche a réussi |
-| `is changed` | La tâche a modifié quelque chose |
-| `is skipped` | La tâche a été ignorée (`when` faux) |
+| Test             | Signification                              |
+| :--------------- | :----------------------------------------- |
+| `is failed`    | La tâche a échoué                       |
+| `is succeeded` | La tâche a réussi                        |
+| `is changed`   | La tâche a modifié quelque chose         |
+| `is skipped`   | La tâche a été ignorée (`when` faux) |
 
 > 💡 `group_result is failed` est préférable à `group_result.failed == true` : plus
 > lisible, et fonctionne même si la clé `failed` est absente du résultat.
@@ -1882,13 +1891,13 @@ changed: [node1]
 
 **Spécifications :**
 
-| Élément | Valeur |
-|:---|:---|
-| Répertoire à sauvegarder | `/var/www` |
+| Élément                  | Valeur                                              |
+| :------------------------- | :-------------------------------------------------- |
+| Répertoire à sauvegarder | `/var/www`                                        |
 | Répertoire de destination | `/backup` (mode `0750`, propriétaire `root`) |
-| Nom de l'archive | `var_www_archive_YYYY-MM-DD_HH-mm-ss.tar.gz` |
-| Format | `gz` |
-| Cible | `web_servers` |
+| Nom de l'archive           | `var_www_archive_YYYY-MM-DD_HH-mm-ss.tar.gz`      |
+| Format                     | `gz`                                              |
+| Cible                      | `web_servers`                                     |
 
 Exemple de nom attendu : `var_www_archive_2026-09-01_14-32-05.tar.gz`
 
@@ -1999,10 +2008,10 @@ ansible-playbook playbooks/exo12-backup.yml    # une 2e archive apparaît
 
 **Le module `find`** renvoie :
 
-| Clé | Contenu |
-|:---|:---|
-| `matched` | Nombre de fichiers trouvés |
-| `files` | Liste de dictionnaires (`path`, `size`, `mtime`, `mode`…) |
+| Clé        | Contenu                                                            |
+| :---------- | :----------------------------------------------------------------- |
+| `matched` | Nombre de fichiers trouvés                                        |
+| `files`   | Liste de dictionnaires (`path`, `size`, `mtime`, `mode`…) |
 
 La chaîne de filtres `map(attribute='path') | sort | last | basename` extrait les chemins,
 les trie (l'horodatage ISO garantit un tri chronologique), prend le dernier et n'en garde
@@ -2047,12 +2056,12 @@ que le nom de fichier.
 
 **Spécifications :**
 
-| Élément | Valeur |
-|:---|:---|
-| Fichier | `/tp/playbooks/exo-handlers.yml` |
-| Cible | `web_servers` |
-| Variable | `http_port: 80` |
-| Handler | `Redemarrer Apache` |
+| Élément | Valeur                             |
+| :-------- | :--------------------------------- |
+| Fichier   | `/tp/playbooks/exo-handlers.yml` |
+| Cible     | `web_servers`                    |
+| Variable  | `http_port: 80`                  |
+| Handler   | `Redemarrer Apache`              |
 
 ---
 
@@ -2154,13 +2163,13 @@ ansible web_servers -m shell -a "ss -tlnp | grep ':8080'" --become
 
 **Les 5 règles des handlers :**
 
-| Règle | Détail |
-|:---|:---|
-| 1. Déclenchement conditionnel | Uniquement si la tâche `notify` rapporte **`changed`** |
-| 2. Exécution différée | À la **fin du play**, pas immédiatement après la tâche |
-| 3. Dédoublonnage | 10 tâches notifient le même handler → il tourne **une seule fois** |
-| 4. Ordre fixe | L'ordre de **déclaration** des handlers, pas celui des `notify` |
-| 5. Ignorés si le play échoue | Sauf avec `--force-handlers` ou `force_handlers: true` |
+| Règle                         | Détail                                                                    |
+| :----------------------------- | :------------------------------------------------------------------------- |
+| 1. Déclenchement conditionnel | Uniquement si la tâche`notify` rapporte **`changed`**           |
+| 2. Exécution différée       | À la**fin du play**, pas immédiatement après la tâche            |
+| 3. Dédoublonnage              | 10 tâches notifient le même handler → il tourne**une seule fois** |
+| 4. Ordre fixe                  | L'ordre de**déclaration** des handlers, pas celui des `notify`    |
+| 5. Ignorés si le play échoue | Sauf avec`--force-handlers` ou `force_handlers: true`                  |
 
 </details>
 
@@ -2175,8 +2184,7 @@ relancez avec un port différent. Que se passe-t-il, et pourquoi est-ce dangereu
 ansible-playbook playbooks/exo-handlers.yml -e "http_port=9090"
 ```
 
-Selon la version d'Ansible, vous obtenez soit une erreur `The requested handler was not
-found`, soit — dans les configurations tolérantes — **rien du tout** : la tâche passe en
+Selon la version d'Ansible, vous obtenez soit une erreur `The requested handler was not found`, soit — dans les configurations tolérantes — **rien du tout** : la tâche passe en
 `changed`, mais **aucun handler ne s'exécute**.
 
 > ⚠️ **Le piège silencieux.** Le nom dans `notify:` doit correspondre **exactement** (casse
@@ -2212,11 +2220,11 @@ ansible web_servers -m shell -a "ss -tlnp | grep ':80 '" --become
 
 **Spécifications du playbook :**
 
-| Tâche | Contenu |
-|:---|:---|
-| 1 | Installer Apache |
-| 2 | Redémarrer Apache, en enregistrant le résultat dans `apache_restart_output` |
-| 3 | Afficher le contenu de cette variable |
+| Tâche | Contenu                                                                        |
+| :----- | :----------------------------------------------------------------------------- |
+| 1      | Installer Apache                                                               |
+| 2      | Redémarrer Apache, en enregistrant le résultat dans`apache_restart_output` |
+| 3      | Afficher le contenu de cette variable                                          |
 
 ---
 
@@ -2259,6 +2267,7 @@ ansible-playbook playbooks/exo07-conflit.yml
 ---
 
 **Tâche 2 —** Répondez aux trois questions :
+
 * Le playbook s'est-il exécuté correctement ?
 * La 3ᵉ tâche s'est-elle exécutée ?
 * Si non, pourquoi ?
@@ -2278,10 +2287,10 @@ fatal: [node1]: FAILED! => {"changed": false,
 
 **3. Pourquoi ?** **Deux causes distinctes, à ne pas confondre :**
 
-| Cause | Explication |
-|:---|:---|
-| **La tâche 2 échoue** | Nginx occupe déjà le port 80. Apache ne peut pas s'y lier : `Address already in use`. |
-| **La tâche 3 ne part pas** | Par défaut, **dès qu'une tâche échoue sur un hôte, Ansible retire cet hôte du play**. Les tâches suivantes ne sont pas jouées pour lui. |
+| Cause                             | Explication                                                                                                                                          |
+| :-------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **La tâche 2 échoue**     | Nginx occupe déjà le port 80. Apache ne peut pas s'y lier :`Address already in use`.                                                             |
+| **La tâche 3 ne part pas** | Par défaut,**dès qu'une tâche échoue sur un hôte, Ansible retire cet hôte du play**. Les tâches suivantes ne sont pas jouées pour lui. |
 
 > 🔑 C'est le comportement par défaut d'Ansible : **fail fast**. Il évite d'enchaîner des
 > tâches sur une machine dont l'état est déjà incertain.
@@ -2326,11 +2335,11 @@ no listening sockets available, shutting down
 
 **Spécifications — modifier le playbook précédent pour :**
 
-| Tâche | Contenu |
-|:---|:---|
-| 2 | Ignorer l'erreur en cas d'échec |
-| 3 | Afficher la variable (inchangée) |
-| 4 | **Nouvelle** — signaler l'échec de la tâche 2 avec `debug` et `when` |
+| Tâche | Contenu                                                                           |
+| :----- | :-------------------------------------------------------------------------------- |
+| 2      | Ignorer l'erreur en cas d'échec                                                  |
+| 3      | Afficher la variable (inchangée)                                                 |
+| 4      | **Nouvelle** — signaler l'échec de la tâche 2 avec `debug` et `when` |
 
 ---
 
@@ -2459,11 +2468,11 @@ Quelles alternatives sont préférables ?
 # ⚠️ 3. ignore_errors — en dernier recours seulement
 ```
 
-| Directive | Effet | Quand l'utiliser |
-|:---|:---|:---|
-| `ignore_errors: true` | Marque `failed` mais continue | Tâche **réellement** optionnelle |
+| Directive               | Effet                                     | Quand l'utiliser                          |
+| :---------------------- | :---------------------------------------- | :---------------------------------------- |
+| `ignore_errors: true` | Marque`failed` mais continue            | Tâche**réellement** optionnelle   |
 | `failed_when: <cond>` | **Redéfinit** le critère d'échec | Code retour ≠ 0 qui n'est pas une erreur |
-| `block`/`rescue` | Rattrape et compense | Échec prévisible avec plan B |
+| `block`/`rescue`    | Rattrape et compense                      | Échec prévisible avec plan B            |
 
 > 🔑 **La règle :** dès que l'échec est significatif, utilisez `failed_when` ou
 > `block`/`rescue`. `ignore_errors` sur une tâche critique est une bombe à retardement.
@@ -2512,11 +2521,11 @@ ansible-playbook playbooks/exo-handlers.yml -e "http_port=9090" --check --diff
 ansible web_servers -m command -a "grep '^Listen' /etc/apache2/ports.conf" --become -o
 ```
 
-| Option | Effet |
-|:---|:---|
-| `--check` | **Simulation** — aucune modification sur les cibles |
-| `--diff` | Affiche le détail ligne à ligne des changements de fichiers |
-| `--check --diff` | La combinaison à jouer avant toute exécution en production |
+| Option             | Effet                                                         |
+| :----------------- | :------------------------------------------------------------ |
+| `--check`        | **Simulation** — aucune modification sur les cibles    |
+| `--diff`         | Affiche le détail ligne à ligne des changements de fichiers |
+| `--check --diff` | La combinaison à jouer avant toute exécution en production  |
 
 </details>
 
@@ -2538,6 +2547,7 @@ ansible-playbook playbooks/exo-handlers.yml --start-at-task="Déployer la page d
 > ⚠️ **Limite de `--check`** : certaines tâches ne peuvent pas être simulées correctement.
 > Si une tâche `command` crée un fichier que la tâche suivante lit, le mode check échouera
 > en cascade. On neutralise ces tâches avec :
+>
 > ```yaml
 > - name: Tâche non simulable
 >   ansible.builtin.command: /opt/script.sh
@@ -2555,12 +2565,12 @@ ansible-playbook playbooks/exo-handlers.yml --start-at-task="Déployer la page d
 
 **Spécifications :**
 
-| Élément | Valeur |
-|:---|:---|
-| Template | `/tp/templates/app.conf.j2` |
+| Élément   | Valeur                                                        |
+| :---------- | :------------------------------------------------------------ |
+| Template    | `/tp/templates/app.conf.j2`                                 |
 | Destination | `/etc/app/app.conf` (mode `0644`, propriétaire `root`) |
-| Répertoire | `/etc/app` (mode `0755`) à créer |
-| Cible | `web_servers` |
+| Répertoire | `/etc/app` (mode `0755`) à créer                        |
+| Cible       | `web_servers`                                               |
 
 **Contenu attendu du fichier généré** — les valeurs entre `< >` doivent être renseignées
 automatiquement selon la machine :
@@ -2587,12 +2597,13 @@ Nom du serveur : {{ ansible_hostname }}
 
 **Les deux facts utilisés :**
 
-| Fact | Contenu | Exemple |
-|:---|:---|:---|
+| Fact                             | Contenu                       | Exemple           |
+| :------------------------------- | :---------------------------- | :---------------- |
 | `ansible_default_ipv4.address` | IP de l'interface par défaut | `192.168.56.21` |
-| `ansible_hostname` | Nom court de la machine | `node1` |
+| `ansible_hostname`             | Nom court de la machine       | `node1`         |
 
 > 💡 Pour explorer les facts disponibles :
+>
 > ```bash
 > ansible node1 -m setup -a "filter=ansible_default_ipv4"
 > ansible node1 -m setup -a "filter=ansible_hostname"
@@ -2687,12 +2698,12 @@ Nom du serveur : {{ ansible_hostname }}
 
 Aucune substitution ne serait effectuée.
 
-| | `copy` | `template` |
-|:---|:---|:---|
-| Rendu Jinja2 | ❌ Contenu copié tel quel | ✅ Variables interprétées |
-| Extension du source | quelconque | `.j2` par convention |
-| Recherche du fichier | `files/` | `templates/` |
-| Cas d'usage | Binaire, certificat, fichier figé | **Toute configuration** |
+|                      | `copy`                           | `template`                  |
+| :------------------- | :--------------------------------- | :---------------------------- |
+| Rendu Jinja2         | ❌ Contenu copié tel quel         | ✅ Variables interprétées   |
+| Extension du source  | quelconque                         | `.j2` par convention        |
+| Recherche du fichier | `files/`                         | `templates/`                |
+| Cas d'usage          | Binaire, certificat, fichier figé | **Toute configuration** |
 
 > 🔑 **La règle :** dès qu'une variable apparaît dans un fichier de configuration, on passe
 > de `copy` à `template`. **Un seul** template remplace un fichier par serveur.
@@ -2708,13 +2719,13 @@ Aucune substitution ne serait effectuée.
 
 **Spécifications :**
 
-| Élément | Valeur |
-|:---|:---|
-| Paquets | `mysql-server`, `python3-pymysql` |
-| Fichier de configuration source | `/tp/files/my.cnf` |
-| Destination | `/etc/mysql/conf.d/lab.cnf` (mode `0644`) |
-| Redémarrage | par **handler**, uniquement si la config change |
-| Cible | `db_servers` |
+| Élément                       | Valeur                                               |
+| :------------------------------ | :--------------------------------------------------- |
+| Paquets                         | `mysql-server`, `python3-pymysql`                |
+| Fichier de configuration source | `/tp/files/my.cnf`                                 |
+| Destination                     | `/etc/mysql/conf.d/lab.cnf` (mode `0644`)        |
+| Redémarrage                    | par**handler**, uniquement si la config change |
+| Cible                           | `db_servers`                                       |
 
 **Contenu de `my.cnf` :** `bind-address = 0.0.0.0`, `port = 3306`,
 `max_connections = 100`, jeu de caractères `utf8mb4`.
@@ -2839,10 +2850,10 @@ Si votre contexte exige littéralement `/etc/mysql/my.cnf`, ajoutez au minimum
 
 **Spécifications :**
 
-| Play | Cible | Contenu |
-|:---|:---|:---|
-| 1 | `web_servers` | Apache + PHP, VirtualHost, page de test, validation HTTP |
-| 2 | `db_servers` | MariaDB, base `monapp_db`, utilisateur `monapp` |
+| Play | Cible           | Contenu                                                  |
+| :--- | :-------------- | :------------------------------------------------------- |
+| 1    | `web_servers` | Apache + PHP, VirtualHost, page de test, validation HTTP |
+| 2    | `db_servers`  | MariaDB, base`monapp_db`, utilisateur `monapp`       |
 
 Variables du play 1 : `http_port: 80`, `document_root: /var/www/monapp`,
 `php_packages: [php, php-mysql, libapache2-mod-php]`.
@@ -2991,11 +3002,11 @@ VirtualHost, activation du site et désactivation du site par défaut.
 
 **Le trio de validation :**
 
-| Module | Rôle |
-|:---|:---|
-| `uri` | Interroge un endpoint HTTP et capture la réponse |
-| `register` | Stocke `status`, `content`, `elapsed`… |
-| `assert` | **Échoue** le play si une condition n'est pas remplie |
+| Module       | Rôle                                                        |
+| :----------- | :----------------------------------------------------------- |
+| `uri`      | Interroge un endpoint HTTP et capture la réponse            |
+| `register` | Stocke`status`, `content`, `elapsed`…                 |
+| `assert`   | **Échoue** le play si une condition n'est pas remplie |
 
 > 🔑 `assert` transforme votre playbook en **playbook auto-testé** : on ne se contente pas
 > de déployer, on **vérifie** que le résultat est conforme. C'est la base des tests
@@ -3131,8 +3142,8 @@ node3  : ok=6   changed=0   unreachable=0   failed=0
 
 **Spécifications — liste des utilisateurs :**
 
-| username | uid |
-|:---|:---|
+| username | uid      |
+| :------- | :------- |
 | `lab1` | `2001` |
 | `lab2` | `2002` |
 | `lab3` | `3003` |
@@ -3140,10 +3151,10 @@ node3  : ok=6   changed=0   unreachable=0   failed=0
 
 **Règles de répartition :**
 
-| Condition | Cible |
-|:---|:---|
-| uid **< 3000** | `web_servers` |
-| uid **≥ 3000** | `db_servers` |
+| Condition            | Cible           |
+| :------------------- | :-------------- |
+| uid**< 3000**  | `web_servers` |
+| uid**≥ 3000** | `db_servers`  |
 
 Le mot de passe est **commun** à tous les comptes : `p@SSw0duser`, stocké dans un fichier
 **chiffré par Ansible Vault**.
@@ -3219,14 +3230,14 @@ ansible-vault edit /tp/secret.yml
 
 **Les commandes du coffre :**
 
-| Commande | Effet |
-|:---|:---|
-| `create` | Crée un fichier directement chiffré |
-| `encrypt` | Chiffre un fichier existant |
-| `decrypt` | Déchiffre **définitivement** sur le disque ⚠️ |
-| `view` | Affiche sans modifier |
-| `edit` | Édite (jamais en clair sur le disque) |
-| `rekey` | Change le mot de passe du coffre |
+| Commande    | Effet                                                  |
+| :---------- | :----------------------------------------------------- |
+| `create`  | Crée un fichier directement chiffré                  |
+| `encrypt` | Chiffre un fichier existant                            |
+| `decrypt` | Déchiffre**définitivement** sur le disque ⚠️ |
+| `view`    | Affiche sans modifier                                  |
+| `edit`    | Édite (jamais en clair sur le disque)                 |
+| `rekey`   | Change le mot de passe du coffre                       |
 
 > 💡 Le **Lab 08** approfondira : pattern `vars.yml` + `vault.yml`, `vault-id` multiples,
 > intégration CI/CD, `no_log`, hooks anti-fuite.
@@ -3283,12 +3294,12 @@ selon les règles de répartition.
 
 **Les quatre mécanismes combinés :**
 
-| Mécanisme | Rôle |
-|:---|:---|
-| `vars_files` | Charge des variables depuis des fichiers externes, chiffrés ou non |
-| `loop` | Itère sur la liste `users` |
-| `when` (liste) | Deux conditions combinées en **ET** logique |
-| `item.uid \| int` | **Conversion obligatoire** avant comparaison numérique |
+| Mécanisme         | Rôle                                                               |
+| :----------------- | :------------------------------------------------------------------ |
+| `vars_files`     | Charge des variables depuis des fichiers externes, chiffrés ou non |
+| `loop`           | Itère sur la liste`users`                                        |
+| `when` (liste)   | Deux conditions combinées en**ET** logique                   |
+| `item.uid \| int` | **Conversion obligatoire** avant comparaison numérique       |
 
 > ⚠️ **Le piège de `| int`.** Sans conversion, `"3003" < "3000"` est évalué comme une
 > comparaison de **chaînes**, pas de nombres. Le résultat serait faux. Convertissez
@@ -3339,6 +3350,7 @@ ansible db_servers -m shell -a "getent passwd lab1 lab2 lab3 lab4" -o
 
 > 🔑 **N'oubliez pas le `.gitignore`.** Le fichier `~/.vault_pass` ne doit **jamais** être
 > versionné :
+>
 > ```
 > .vault_pass
 > *vault_pass*
@@ -3391,11 +3403,11 @@ pour chaque couple hôte × utilisateur.
 
 **Ce qui change :**
 
-| | Version tâche 3 | Version tâche 5 |
-|:---|:---|:---|
-| Ciblage | 1 play sur `all` + `when` sur le groupe | 2 plays ciblés |
-| Filtrage des utilisateurs | `when` évalué N fois par hôte | `selectattr` évalué **une fois** |
-| Lisibilité | Conditions imbriquées | Intention explicite |
+|                           | Version tâche 3                           | Version tâche 5                           |
+| :------------------------ | :----------------------------------------- | :----------------------------------------- |
+| Ciblage                   | 1 play sur`all` + `when` sur le groupe | 2 plays ciblés                            |
+| Filtrage des utilisateurs | `when` évalué N fois par hôte         | `selectattr` évalué **une fois** |
+| Lisibilité               | Conditions imbriquées                     | Intention explicite                        |
 
 > 💡 `selectattr('uid', '<', 3000)` filtre la liste **avant** la boucle. `selectattr` et
 > `map` sont approfondis au **Lab 06**.
@@ -3591,25 +3603,25 @@ ansible-playbook playbooks/reset-lab04.yml
 
 ## À retenir
 
-| Point clé | Détail |
-|:---|:---|
-| **Structure** | `- name` / `hosts` / `vars` / `pre_tasks` / `tasks` / `post_tasks` / `handlers` |
-| **Un fichier, plusieurs plays** | Un playbook peut orchestrer plusieurs groupes en séquence. |
-| **`debug`** | `var:` sans `{{ }}`, `msg:` avec `{{ }}`. |
-| **`apt` vs `package`** | Contrôle fin vs portabilité multi-distribution. |
-| **`append: true`** | Sur `user.groups`, sinon les groupes existants sont **écrasés**. |
-| **`mode: "0755"`** | Toujours entre guillemets — sinon YAML lit un entier décimal. |
-| **`regexp:` sur `lineinfile`** | Sans lui, la ligne est ajoutée en double à chaque exécution. |
-| **`validate:`** | Sur `sshd_config`, `sudoers`, configs Apache/Nginx — évite de casser un service. |
-| **`password_hash`** | Filtre → s'exécute **sur le controller**. Sel fixe = idempotence. |
-| **`default()`** | Le filtre le plus utile : rend un playbook tolérant aux variables absentes. |
-| **Priorité des variables** | `defaults/` = le plus faible, `-e` = **toujours** le plus fort. |
-| **Handlers** | Déclenchés sur `changed`, à la fin du play, dédoublonnés. Nom **exact**. |
-| **Échec = hôte retiré du play** | Les tâches suivantes ne sont pas jouées pour cet hôte. |
-| **`ignore_errors`** | Le playbook finit **en succès** malgré l'échec. Préférez `failed_when`. |
-| **`\| int`** | Obligatoire avant toute comparaison numérique dans un `when`. |
-| **`creates` / `removes`** | Rendent une tâche `command` idempotente. |
-| **`--check --diff`** | La combinaison à jouer avant toute exécution en production. |
+| Point clé                               | Détail                                                                                       |
+| :--------------------------------------- | :-------------------------------------------------------------------------------------------- |
+| **Structure**                      | `- name` / `hosts` / `vars` / `pre_tasks` / `tasks` / `post_tasks` / `handlers` |
+| **Un fichier, plusieurs plays**    | Un playbook peut orchestrer plusieurs groupes en séquence.                                   |
+| **`debug`**                      | `var:` sans `{{ }}`, `msg:` avec `{{ }}`.                                             |
+| **`apt` vs `package`**         | Contrôle fin vs portabilité multi-distribution.                                             |
+| **`append: true`**               | Sur`user.groups`, sinon les groupes existants sont **écrasés**.                     |
+| **`mode: "0755"`**               | Toujours entre guillemets — sinon YAML lit un entier décimal.                               |
+| **`regexp:` sur `lineinfile`** | Sans lui, la ligne est ajoutée en double à chaque exécution.                               |
+| **`validate:`**                  | Sur`sshd_config`, `sudoers`, configs Apache/Nginx — évite de casser un service.         |
+| **`password_hash`**              | Filtre → s'exécute**sur le controller**. Sel fixe = idempotence.                      |
+| **`default()`**                  | Le filtre le plus utile : rend un playbook tolérant aux variables absentes.                  |
+| **Priorité des variables**        | `defaults/` = le plus faible, `-e` = **toujours** le plus fort.                     |
+| **Handlers**                       | Déclenchés sur`changed`, à la fin du play, dédoublonnés. Nom **exact**.          |
+| **Échec = hôte retiré du play** | Les tâches suivantes ne sont pas jouées pour cet hôte.                                     |
+| **`ignore_errors`**              | Le playbook finit**en succès** malgré l'échec. Préférez `failed_when`.           |
+| **`\| int`**                      | Obligatoire avant toute comparaison numérique dans un`when`.                               |
+| **`creates` / `removes`**      | Rendent une tâche`command` idempotente.                                                    |
+| **`--check --diff`**             | La combinaison à jouer avant toute exécution en production.                                 |
 
 ### Le workflow d'exécution recommandé
 
@@ -3623,13 +3635,13 @@ ansible-playbook site.yml                     # 5. contrôle : changed=0 attendu
 
 ### Ce qui sera approfondi plus loin
 
-| Notion vue ici | Approfondie au |
-|:---|:---|
+| Notion vue ici                                              | Approfondie au                        |
+| :---------------------------------------------------------- | :------------------------------------ |
 | `when`, `loop`, `ignore_errors`, `block`/`rescue` | **Lab 05** — Contrôle du flux |
-| `template`, Jinja2, `selectattr`, filtres, facts | **Lab 06** — Templating |
-| Réutiliser ce playbook sous forme de rôle | **Lab 07** — Rôles |
-| `ansible-vault`, `vault-id`, `no_log`, `.gitignore` | **Lab 08** — Vault |
-| `assert`, tests d'infrastructure, `serial` | **Lab 09** — Orchestration |
+| `template`, Jinja2, `selectattr`, filtres, facts        | **Lab 06** — Templating        |
+| Réutiliser ce playbook sous forme de rôle                 | **Lab 07** — Rôles            |
+| `ansible-vault`, `vault-id`, `no_log`, `.gitignore` | **Lab 08** — Vault             |
+| `assert`, tests d'infrastructure, `serial`              | **Lab 09** — Orchestration     |
 
 ---
 

@@ -19,7 +19,7 @@ notions vues. Les corrections sont masquées dans des blocs dépliables `<detail
 | M2 | Architecture, configuration & inventaires | [Lab 02 — Installation, SSH et inventaires](<lab 02 - Installation, SSH et inventaires/instructions.md>) | 45 min |
 | M3 | Commandes ad-hoc, modules & idempotence | [Lab 03 — Commandes ad-hoc et idempotence](<lab 03 - Commandes ad-hoc et idempotence/instructions.md>) | 45 min |
 | M4 | Playbooks : structure, variables & handlers | [Lab 04 — Premier playbook et stack LAMP](<lab 04 - Premier playbook et stack LAMP/instructions.md>) | 120 min |
-| M5 | Contrôle du flux : conditions, boucles, blocks, tags | [Lab 05 — Contrôle du flux et gestion des erreurs](<lab 05 - Contrôle du flux et gestion des erreurs/instructions.md>) | 60 min |
+| M5 | Contrôle du flux : conditions, boucles, blocks, tags | [Lab 05 — Contrôle du flux et gestion des erreurs](<lab 05 - Contrôle du flux et gestion des erreurs/instructions.md>) | 75 min |
 
 ### Jour 2 — Industrialisation et expertise
 
